@@ -1,17 +1,14 @@
-# 知乎邀请问题适配器
+# 知乎精选问题适配器（待确认）
 
 ## 页面信息
-- URL：`https://www.zhihu.com/creator/featured-question/invited`
-- 类型：知乎邀请问题
+- URL：`https://www.zhihu.com/creator/featured-question/`（或 `/recommend`）
+- 类型：知乎精选问题
+- 状态：⚠️ **未验证**（此文件与 adapter-zhihu-invited.md 内容重复）
 
-## 提取字段
-字段：问题标题、问题描述、关注数、回答数、邀请理由、问题链接
+## 说明
+该文件内容与 `adapter-zhihu-invited.md` 完全重复，且 URL 指向同一页面。建议确认用途后清理：
+- 如果用于知乎推荐问题 → 请使用 `adapter-zhihu-recommend.md`
+- 如果用于知乎邀请问题 → 请使用 `adapter-zhihu-invited.md`
 
-## 输出格式
-```markdown
-# 知乎推荐问题 · {日期}
-
-| 排名 | 问题标题 | 描述摘要 | 关注数 | 回答数 | 链接 |
-|------|----------|----------|--------|--------|------|
-| 1 | xxx？ | …… | 3,200 | 85 | [链接](url) |
-```
+## 临时操作方法
+参考 `adapter-zhihu-invited.md` 或 `adapter-zhihu-recommend.md` 的操作步骤。

@@ -1063,7 +1063,7 @@ graph TD
 # 用户侧操作示例（Copilot Chat 中输入）
 
 1️⃣  @deai-hotspot  采集今天微博和百度热搜
-     ↓ 产出 hotspot/榜单/2026-06-23-热点榜单.md
+     ↓ 产出 hotspot/榜单/2026-06-23/融合榜单.md
 
 2️⃣  @deai-topic  从今天的榜单推荐 3 个选题
      ↓ 产出 hotspot/选题/2026-06-23-选题卡.md

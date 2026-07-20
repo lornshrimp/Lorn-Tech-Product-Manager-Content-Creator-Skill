@@ -1,6 +1,6 @@
 ---
 name: deai-hotspot
-description: '从多个平台采集热点话题（微博、百度、知乎问题热榜、知乎推荐问题、知乎邀请问题、知乎想法话题、头条、B站、抖音）。使用时：需要获取今日热点榜单作为选题依据。跨来源去重、热度归一化，输出融合排名。'
+description: '从多个平台采集热点话题（微博、百度、知乎问题热榜、知乎推荐问题、知乎邀请问题、知乎想法话题、头条、B站、抖音、百度指数、知微事见、IT之家、澎湃新闻、网易新闻、InfoQ中国、虎嗅、品玩）。使用时：需要获取今日热点榜单作为选题依据。跨来源去重、热度归一化，输出融合排名。'
 user-invocable: true
 ---
 
@@ -14,8 +14,8 @@ user-invocable: true
 - 用户指定来源类型（默认全量采集所有平台）
 
 ## Output
-- `hotspot/榜单/{日期}-{来源}.md`（各来源原始榜单）
-- `hotspot/榜单/{日期}-融合榜单.md`（跨平台聚合后的 TOP 榜单）
+- `hotspot/榜单/{日期}/{来源}.md`（各来源原始榜单，按日期分目录存放）
+- `hotspot/榜单/{日期}/融合榜单.md`（跨平台聚合后的 TOP 榜单）
 
 ## Procedure
 
@@ -27,7 +27,6 @@ user-invocable: true
 | 微博热搜榜 | `./references/adapter-weibo.md` |
 | 百度热搜榜 | `./references/adapter-baidu.md` |
 | 知乎问题热榜 | `./references/adapter-zhihu-q.md` |
-| 知乎问题热榜 | `./references/adapter-zhihu-q.md` |
 | 知乎推荐问题 | `./references/adapter-zhihu-recommend.md` |
 | 知乎邀请问题 | `./references/adapter-zhihu-invited.md` |
 | 知乎想法话题 | `./references/adapter-zhihu-idea.md` |
@@ -35,6 +34,14 @@ user-invocable: true
 | 头条热榜 | `./references/adapter-toutiao.md` |
 | B站热门 | `./references/adapter-bilibili.md` |
 | 抖音热点 | `./references/adapter-douyin.md` |
+| 百度指数 | `./references/adapter-baidu-index.md` |
+| **知微事见** | `./references/adapter-zhiwei.md` |
+| **IT之家热榜** | `./references/adapter-ithome.md` |
+| **澎湃新闻热榜** | `./references/adapter-thepaper.md` |
+| **网易新闻热点排行** | `./references/adapter-163news.md` |
+| **InfoQ中国热点** | `./references/adapter-infoq.md` |
+| **虎嗅48h热文** | `./references/adapter-huxiu.md` |
+| **品玩一周精选** | `./references/adapter-pingwest.md` |
 
 ### 2. 按来源采集
 对每个来源，按对应适配器说明访问页面、提取字段、标准化输出。
@@ -42,7 +49,7 @@ user-invocable: true
 ### 3. 执行融合
 
 ```text
-① 读取当日所有 {来源}.md 文件
+① 读取 `hotspot/榜单/{日期}/` 目录下当日所有 `{来源}.md` 文件
 ② 对标题做模糊相似度匹配（>0.80 视为同一热点）
 ③ 合并热度值（不同来源量纲归一化后加权平均）
 ④ 按融合热度排序，去重后输出 TOP 20
@@ -51,7 +58,19 @@ user-invocable: true
 
 ### 4. 输出文件
 
-输出原始榜单（各来源独立文件）和融合榜单（聚合文件）。
+输出原始榜单（各来源独立文件）和融合榜单（聚合文件），按日期组织在子目录下：
+
+```
+hotspot/榜单/
+├── {日期}/               ← 按采集日期分组
+│   ├── 融合榜单.md       ← 当日跨平台融合 TOP 榜单
+│   ├── 微博热搜榜.md     ← 各来源原始榜单
+│   ├── 百度热搜榜.md
+│   ├── 知乎问题热榜.md
+│   └── ...
+├── {另一日期}/
+│   └── ...
+```
 
 融合榜单格式：
 
